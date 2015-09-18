@@ -54,7 +54,6 @@ class ScraperUnitTest(unittest.TestCase):
         self.assertIn('Lemon-parsley mixture can be made 4 hours ahead. Cover and chill.',
                       ' '.join(self.cauliflower_scrape['directions']))
 
-
     def test_servings(self):
         self.assertEqual(self.ribeye_scrape['servings'], '')
         self.assertEqual(self.cauliflower_scrape['servings'], '4')
@@ -64,6 +63,12 @@ class ScraperUnitTest(unittest.TestCase):
         self.assertEqual(self.ribeye_scrape['cooking_time'], '')
         self.assertEqual(self.cauliflower_scrape['total_time'], '35 min')
         self.assertEqual(self.cauliflower_scrape['cooking_time'], '35 min')
+
+    def test_notes(self):
+        self.assertEqual(self.ribeye_scrape['notes'],
+                         'A bone-in rib eye requires nothing more than salt, pepper, and a hot grill. (Though to make it even more sublime, serve with scallions that have been tossed in olive oil and salt and given a quick char. Watch the step-by-step video here.')
+        self.assertEqual(self.cauliflower_scrape['notes'],
+                         'A side dish that’s equally good with a crusty steak, broiled fish, or seared lamb chops.')
 
 
 if __name__ == '__main__':

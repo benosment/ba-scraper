@@ -19,8 +19,8 @@ def scrape(url):
     content['servings'] = get_servings(soup)
     content['total_time'] = get_total_time(soup)
     content['cooking_time'] = get_cooking_time(soup)
+    content['notes'] = get_notes(soup)
     return content
-
 
 def get_title(soup):
     try:
@@ -92,6 +92,12 @@ def get_total_time(soup):
     except AttributeError:
         return ''
 
+def get_notes(soup):
+    try:
+        notes = soup.find('div', {'class': 'content-intro'}).h2.text
+        return notes
+    except AttributeError:
+        return ''
 
 def parse_args():
     pass
