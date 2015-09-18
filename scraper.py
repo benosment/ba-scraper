@@ -27,19 +27,20 @@ def get_title(soup):
         title = soup.find('h3', {'class': 'recipe-title'})
         return title.text
     except AttributeError:
-        return None
+        return ''
 
 def get_img_url(soup):
     try:
         img_url = soup.find('meta', {'property': 'og:image'})
         return img_url.attrs['content']
     except AttributeError:
-        return None
+        return ''
 
 def get_ingredients(soup):
     try:
         ingredients = []
         for ingredient in soup.findAll('span', {'class': 'ingredient'}):
+
             quantity = ingredient.find('span', {'class': 'quantity'}).text
             unit = ingredient.find('span', {'class': 'unit'}).text
             name = ingredient.find('span', {'class': 'name'}).text
@@ -49,11 +50,12 @@ def get_ingredients(soup):
             if unit:
                 ingredient_str += " " + unit
             if name:
+                name = name.replace('\u2028\t', '')
                 ingredient_str += " " + name
             ingredients.append(ingredient_str)
         return ingredients
     except AttributeError:
-        return None
+        return ''
 
 def get_directions(soup):
     try:
@@ -62,28 +64,33 @@ def get_directions(soup):
             directions.append(direction.text)
         return directions
     except AttributeError:
-        return None
+        return ''
 
 def get_servings(soup):
-    return ''
     try:
-        title = soup.body.h1
+        servings = soup.find('span', {'class': 'total-servings'}).text
+        if servings:
+            return servings.split('Servings: ')[1]
     except AttributeError:
-        return None
+        return ''
 
 def get_cooking_time(soup):
-    return ''
     try:
-        title = soup.body.h1
+        cooking_time = soup.find('span', {'class': 'active-time',
+                                          'itemprop': ''}).text
+        if cooking_time:
+            return cooking_time.split('active: ')[1]
     except AttributeError:
-        return None
+        return ''
 
 def get_total_time(soup):
-    return ''
     try:
-        title = soup.body.h1
+        total_time = soup.find('span', {'class': 'active-time',
+                                        'itemprop': 'totalTime'}).text
+        if total_time:
+            return total_time.split('total: ')[1]
     except AttributeError:
-        return None
+        return ''
 
 
 def parse_args():

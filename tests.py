@@ -62,8 +62,8 @@ class ScraperUnitTest(unittest.TestCase):
     def test_time(self):
         self.assertEqual(self.ribeye_scrape['total_time'], '')
         self.assertEqual(self.ribeye_scrape['cooking_time'], '')
-        self.assertEqual(self.cauliflower_scrape['total_time'], '35')
-        self.assertEqual(self.cauliflower_scrape['cooking_time'], '35')
+        self.assertEqual(self.cauliflower_scrape['total_time'], '35 min')
+        self.assertEqual(self.cauliflower_scrape['cooking_time'], '35 min')
 
 
 if __name__ == '__main__':
