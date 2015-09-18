@@ -24,19 +24,34 @@ def scrape(url):
 
 def get_title(soup):
     try:
-        title = soup.body.h1
+        title = soup.find('h3', {'class': 'recipe-title'})
+        return title.text
     except AttributeError:
         return None
 
 def get_img_url(soup):
     try:
-        title = soup.body.h1
+        img_url = soup.find('meta', {'property': 'og:image'})
+        return img_url.attrs['content']
     except AttributeError:
         return None
 
 def get_ingredients(soup):
     try:
-        title = soup.body.h1
+        ingredients = []
+        for ingredient in soup.findAll('span', {'class': 'ingredient'}):
+            quantity = ingredient.find('span', {'class': 'quantity'}).text
+            unit = ingredient.find('span', {'class': 'unit'}).text
+            name = ingredient.find('span', {'class': 'name'}).text
+            ingredient_str = ''
+            if quantity:
+                ingredient_str += quantity
+            if unit:
+                ingredient_str += " " + unit
+            if name:
+                ingredient_str += " " + name
+            ingredients.append(ingredient_str)
+        return ingredients
     except AttributeError:
         return None
 
