@@ -57,23 +57,29 @@ def get_ingredients(soup):
 
 def get_directions(soup):
     try:
-        title = soup.body.h1
+        directions = []
+        for direction in soup.findAll('div', {'itemprop': 'recipeInstructions'}):
+            directions.append(direction.text)
+        return directions
     except AttributeError:
         return None
 
 def get_servings(soup):
+    return ''
     try:
         title = soup.body.h1
     except AttributeError:
         return None
 
 def get_cooking_time(soup):
+    return ''
     try:
         title = soup.body.h1
     except AttributeError:
         return None
 
 def get_total_time(soup):
+    return ''
     try:
         title = soup.body.h1
     except AttributeError:
