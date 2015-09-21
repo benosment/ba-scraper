@@ -14,15 +14,16 @@ def scrape(url):
     soup = BeautifulSoup(html.read())
     content = {}
     content['title'] = get_title(soup)
-    content['url'] = url
-    content['img_url'] = get_img_url(soup)
     content['ingredients'] = get_ingredients(soup)
     content['directions'] = get_directions(soup)
     content['servings'] = get_servings(soup)
-    content['total_time'] = get_total_time(soup)
-    content['cooking_time'] = get_cooking_time(soup)
-    content['notes'] = get_notes(soup)
     content['source'] = 'Bon Appetit'
+    content['source_url'] = url
+    content['img_url'] = get_img_url(soup)
+    content['cooking_time'] = get_cooking_time(soup)
+    content['total_time'] = get_total_time(soup)
+    content['notes'] = get_notes(soup)
+
     return content
 
 def get_title(soup):
@@ -123,7 +124,7 @@ def print_recipe(d):
     if d['source']:
         print('\nSource: ', d['source'])
     if d['url']:
-        print('\nURL: ', d['url'])
+        print('\nSource URL: ', d['source_url'])
     if d['img_url']:
         print('\nImage URL: ', d['img_url'])
     if d['cooking_time']:
